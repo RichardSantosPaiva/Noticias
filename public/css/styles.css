@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 *{
@@ -6,127 +5,183 @@
   padding: 0px;
 }
 
-
-body {
-  background-color: #ecf0f1;
-  font-family: "Roboto", sans-serif;
-  font-weight: 100;
-  font-style: normal;
-}
-
 header {
   padding: 10px;
   background-color: red;
 }
 
-h1 {
-  font-size: 4rem;
-  color:white;
+body {
+  background-color: rgb(237, 237, 237);
+  font-family: "Roboto", serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+h1{
+  color: white;
   text-align: center;
+  font-size: 3rem;
 }
 
-h2 {
-  font-size: 1.3rem;
-}
-
-p {
-  font-size: 1.1rem;
-}
-
-.container-noticias {
+.container-noticias{
   display: flex;
-  flex-direction: row;
-  gap: 20px;
-  margin: auto;
+  justify-content: space-evenly;
+  margin-top: 20px;
 }
-
-.noticias-esquerda {
-  flex: 1;
+.noticias-direita{
+  width: 30%;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 16px;
-  background-color: white;
+  align-items: flex-end;
 }
 
-.noticias-esquerda .noticia img {
-  height: 300px !important  ; 
-  width: 100%;
-}
-.noticias-direita {
-  flex: 3;
+.noticias-esquerda .noticia {
+  background-color: white;
+  border:3px solid red;
 }
 
 .noticias-direita .noticia {
-  border: 3px solid red;
-  width: 410px;
-  height: 500px;
-  background-color: #ecf0f1;
-  padding: 30px 10px;
+  background-color: white;
+  border:3px solid red;
+  padding: 10px;
+}
+
+.noticias-esquerda{
+  width: 100%;
+}
+
+.noticia-par .noticia {
+  width: 400px !important;
+}
+
+
+.noticias-direita .noticia {
   display: flex;
+  align-items: center;
   flex-direction: column;
-  gap: 10px;
-  border-radius: 4px;
-  border-radius: 30px;
-}
-.noticia h2{
-  margin: 30px 0px;
+  margin: 5px 0px;
 }
 
-a {
-  color: rgb(239, 43, 43);
-  font-weight: 600;
-  
+.noticias-direita .noticia img {
+  width: 300px !important;
+  height: 250px !important;
 }
-
-.noticias-direita img {
-  max-width: 290px;
-  width: 90%;
-  height: 260px !important;
+ .noticia{
   border-radius: 20px;
-  margin: auto;
-  display: block;
-
+  overflow: hidden;
+  max-width: 400px;
+  width: 100%;
+}
+.noticia-par{
+  margin:20px 0px;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
 }
 
-.noticia-par {
-  margin: 20px 0px;
-  justify-content: space-evenly;
+.noticia div{
+  padding: 10px;
+}
+.noticia-par img {
+  max-width: 400px !important;
+  width: 100%;
+  height: 300px !important;
+}
+
+.noticias-direita{
   display: flex;
 }
 
-.noticias-direita img:hover{
-  transform: scale(1.1); /* Aumenta a imagem em 20% */
-  transition: transform 0.3s ease-in-out;
+.noticias-direita .noticia{
+  border-radius: 0px;
+  width: 100%;
+  display: flex;
+}
+
+a{
+  color: red;
+  font-weight: 500;
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+.noticias-esquerda .noticia img:hover {
+  transform: scale(1.2);
+  transition: transform 0.2s ease;
+}
+
+.noticia:hover {
+ overflow: none;
 }
 
 
-/* Responsividade */
-@media screen and (max-width: 600px) {
-  .noticias-esquerda {
-    display: none ;
+@media screen and (max-width: 800px) {
+  .noticias-direita {
+    display: none;
   }
 
-  .noticia-par {
-    width: 100% ;
+  .noticias-esquerda  .noticia-par{
     display: flex;
-    flex-direction: column;
-  }
-
-  .noticia-par .noticia {
-    width: 100%;
-    height: auto;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    flex-direction: column; /* Stack the noticias vertically */
     align-items: center;
+    width: 100%; /* Ensure it takes full width */
   }
 
-  .noticia-par img {
-    max-width:400px;
-    width: 100%;
+  .noticia {
+    margin-bottom: 20px; /* Add spacing between each noticia */
+    width: 100%; /* Make sure each noticia takes full width */
   }
+
+  .noticia img {
+    width: 100%; /* Ensure images scale to full width */
+    height: auto; /* Maintain aspect ratio */
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-menu {
+    display: none;
+    width: 100%;
+    text-align: center;
+    padding-top: 20px;
+  }
+
+  .nav-menu.active {
+    display: block;
+  }
+
+  .nav-menu ul {
+    flex-direction: column;
+  }
+
+  .nav-menu li {
+    margin: 10px 0;
+  }
+
 }
 
 
+
+/* Menu de navegação */
+.nav-menu {
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+}
+
+.nav-menu ul {
+  display: flex;
+  list-style: none;
+}
+
+.nav-menu li {
+  margin: 0 20px;
+}
+
+.nav-menu a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.2rem;
+}

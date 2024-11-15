@@ -1,7 +1,8 @@
 const express = require('express');
 const path = require('path');
 const app = express();
-
+const cors = require('cors')
+app.use(cors())
 // Serve arquivos estáticos (CSS, JS, imagens) da pasta 'public'
 // Definir o diretório de views
 app.set('views', path.join(__dirname, 'src', 'views'));

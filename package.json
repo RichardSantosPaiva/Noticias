@@ -11,6 +11,7 @@
   "license": "GNU License 3.0",
   "dependencies": {
     "consign": "^0.1.6",
+    "cors": "^2.8.5",
     "ejs": "^2.7.4",
     "express": "^4.21.1",
     "fs": "0.0.1-security",

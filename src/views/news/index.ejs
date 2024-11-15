@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/styles.css"> <!-- Referência ao seu arquivo CSS -->
+  <title>Lista de Notícias</title>
+</head>
+<body>
+  <header>
+      <h1>g1</h1>
+  </header>
+  <div class="container-noticias">
+       <div class="noticias-direita">
+          <% for (let i = 0; i < noticias.length - 1; i++) { %> <!-- Evitar exibir a última notícia -->
+            <% if (i % 2 === 0) { %>
+              <!-- Começando um novo par de notícias -->
+              <div class="noticia-par">
+            <% } %>
+            
+              <div class="noticia">
+                <a href="<%= noticias[i].link %>">
+                 <img src="<%= noticias[i].imagem %>" alt="Imagem da notícia" style="max-width: 100%; height: auto;">
+                </a>
+                <div>
+                  <h2><%= noticias[i].titulo %></h2>
+                  <p><%= noticias[i].noticia %> <a href="<%= noticias[i].link %>">Ler mais...</a></p>
+                </div>
+              </div>
+            
+            <% if (i % 2 === 1) { %>
+              <!-- Fechando o par de notícias -->
+              </div>
+            <% } %>
+          <% } %>
+       </div>
+
+       <div class="noticias-esquerda">
+          <% noticias.slice(3).forEach(noticia => { %>
+            <div class="noticia">
+              <h2><%= noticia.titulo %></h2>
+              <p><%= noticia.noticia %></p>
+              <% if (noticia.imagem) { %>
+                 <a href="<%= noticia.link %>">
+                   <img src="<%= noticia.imagem %>" alt="Imagem da notícia" style="max-width: 100%; height: auto;">
+                 </a>
+              <% } %>
+            </div>
+            <hr>
+          <% }) %>
+       </div>
+   </div>
+</body>
+</html>

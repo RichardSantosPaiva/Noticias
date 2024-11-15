@@ -3,11 +3,11 @@ const path = require('path');
 const app = express();
 
 // Serve arquivos estáticos (CSS, JS, imagens) da pasta 'public'
-app.use(express.static(path.join(__dirname, 'public')));
-
 // Definir o diretório de views
 app.set('views', path.join(__dirname, 'src', 'views'));
 app.set('view engine', 'ejs');
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 const noticiasRoutes = require('./src/routes/news.js');
 app.use('/noticias', noticiasRoutes);

@@ -1,54 +1,61 @@
 const { Sequelize, DataTypes } = require('sequelize');
+const sequelize = new Sequelize({
+  dialect: 'sqlite',
+  storage: './database.sqlite' // Persistência em arquivo SQLite
+});
 const path = require('path');
+const fs = require('fs').promises; // Usando a versão assíncrona de fs
 
-// Configuração para SQLite local no desenvolvimento
-const isVercel = process.env.VERCEL === 'true';
-
-let sequelize;
-
-if (isVercel) {
-  // Configuração para banco remoto PostgreSQL no Vercel
-  sequelize = new Sequelize(process.env.DATABASE_URL, {
-    dialect: 'postgres',
-    protocol: 'postgres',
-    dialectOptions: {
-      ssl: {
-        require: true,
-        rejectUnauthorized: false
-      }
-    }
-  });
-} else {
-  // Configuração para SQLite local no desenvolvimento
-  const databasePath = path.resolve(__dirname, '../../data', 'database.sqlite');
-  sequelize = new Sequelize({
-    dialect: 'sqlite',
-    storage: databasePath,
-  });
-}
-
+// Definindo o modelo de Noticia
 const Noticia = sequelize.define('Noticia', {
   titulo: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: false
   },
   noticia: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: false
   },
   imagem: {
     type: DataTypes.STRING,
-    allowNull: true,
+    allowNull: true
   },
   link: {
     type: DataTypes.STRING,
-    allowNull: true,
-  },
+    allowNull: true
+  }
 });
 
-// Sincronizar o banco de dados
-sequelize.sync({ force: true })
-  .then(() => console.log("Banco de dados sincronizado"))
-  .catch(error => console.error("Erro ao sincronizar o banco:", error));
+// Função para carregar as notícias a partir do JSON
+const loadNoticias = async () => {
+  const filePath = path.resolve(__dirname, '../../data/noticias.json');
+  try {
+    const data = await fs.readFile(filePath, 'utf-8'); // Leitura assíncrona
+    const noticiasData = JSON.parse(data).noticias;
+
+    for (const noticia of noticiasData) { // Usando for...of para aguardar as promessas
+      await Noticia.create(noticia);
+    }
+    console.log("Notícias carregadas com sucesso.");
+    
+  } catch (error) {
+    console.error("Erro ao carregar notícias do JSON:", error);
+  }
+};
+
+// Função para inicializar o banco de dados
+const initDB = async () => {
+  try {
+    await sequelize.sync({ force: true }); // Use force: true apenas em desenvolvimento para redefinir o banco
+    console.log("Banco de dados sincronizado");
+
+    await loadNoticias(); // Carrega as notícias após a sincronização
+
+  } catch (error) {
+    console.error("Erro ao sincronizar o banco de dados:", error);
+  }
+};
+
+initDB(); // Chama a função de inicialização
 
 module.exports = Noticia;
